@@ -1,7 +1,9 @@
-package randy.owl;
+package randy.owl.types;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import randy.owl.NamespaceManager;
 
 public class OWLInst {
 

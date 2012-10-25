@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 import javax.xml.bind.JAXBException;
 
+import randy.owl.types.OWLClass;
+import randy.owl.types.OWLInst;
+import randy.owl.types.RDF;
+
 public class SemanticsPool {
 
 	private HashMap<String, OWLClass> owlClassHashMap = new HashMap<String, OWLClass>();
