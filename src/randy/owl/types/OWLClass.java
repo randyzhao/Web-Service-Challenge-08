@@ -3,8 +3,7 @@ package randy.owl.types;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import randy.owl.NamespaceManager;
-
+import randy.NamespaceManager;
 public class OWLClass {
 	
 	private String ID;

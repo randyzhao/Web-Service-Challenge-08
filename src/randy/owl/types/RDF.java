@@ -14,7 +14,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import randy.owl.NamespaceManager;
+import randy.NamespaceManager;
 
 /**
  * @author Randyzhao

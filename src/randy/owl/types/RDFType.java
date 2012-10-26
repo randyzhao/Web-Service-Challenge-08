@@ -2,7 +2,7 @@ package randy.owl.types;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import randy.owl.NamespaceManager;
+import randy.NamespaceManager;
 
 public class RDFType {
 
