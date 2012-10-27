@@ -1,51 +1,51 @@
 package randy.wsdl.types;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import randy.NamespaceManager;
 
 @XmlRootElement(name="definitions")
 public class Definitions {
 
-	private List<Service> serviceList = new ArrayList<Service>();
-	private List<Binding> bindingList = new ArrayList<Binding>();
-	private List<PortType> portTypeList = new ArrayList<PortType>();
-	private List<Message> messageList = new ArrayList<Message>();
-	private List<SemExtention> semExtensionList = new ArrayList<SemExtention>();
+	private SemExtention semExtension;
 	
-	@XmlElement(name="service")
-	public List<Service> getServiceList() {
-		return serviceList;
+	@XmlElement(name="semExtension", namespace=NamespaceManager.MECE_NAMESPACE)
+	public SemExtention getSemExtension() {
+		return semExtension;
+	}
+	
+	public void setSemExtension(SemExtention semExtension) {
+		this.semExtension = semExtension;
 	}
 
-	@XmlElement(name="binding")
-	public List<Binding> getBindingList() {
-		return bindingList;
+	public static Definitions parseXML(String filePath) throws JAXBException{
+		JAXBContext jc = JAXBContext.newInstance(Definitions.class);
+		return (Definitions)jc.createUnmarshaller().unmarshal(new File(filePath));
 	}
-
-	@XmlElement(name="portType")
-	public List<PortType> getPortTypeList() {
-		return portTypeList;
-	}
-
-	@XmlElement(name="message")
-	public List<Message> getMessageList() {
-		return messageList;
-	}
-
-	@XmlElement(name="semExtension")
-	public List<SemExtention> getSemExtensionList() {
-		return semExtensionList;
-	}
-
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		try {
+			Definitions def = Definitions.parseXML("Services.wsdl");
+			for (SemMessageExt sme : def.getSemExtension().getSemMessageExtList()){
+				System.out.println(sme.getId());
+				for (SemExt se: sme.getSemExt()){
+					System.out.println(se.getId());
+				}
+			}
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -1,20 +1,19 @@
 package randy.wsdl.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import randy.NamespaceManager;
 
 public class SemExtention {
 
-	private SemMessageExt semMessageExt;
+	private List<SemMessageExt> semMessageExtList = new ArrayList<SemMessageExt>();
 	
 	@XmlElement(name="semMessageExt", namespace=NamespaceManager.MECE_NAMESPACE)
-	public SemMessageExt getSemMessageExt() {
-		return semMessageExt;
-	}
-
-	public void setSemMessageExt(SemMessageExt semMessageExt) {
-		this.semMessageExt = semMessageExt;
+	public List<SemMessageExt> getSemMessageExtList() {
+		return semMessageExtList;
 	}
 
 	/**
@@ -24,5 +23,7 @@ public class SemExtention {
 		// TODO Auto-generated method stub
 
 	}
+
+	
 
 }

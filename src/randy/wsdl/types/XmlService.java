@@ -3,7 +3,7 @@ package randy.wsdl.types;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-public class Service {
+public class XmlService {
 
 	private String name;
 	private Port port;

@@ -11,15 +11,15 @@ import randy.owl.types.RDF;
 
 public class SemanticsPool {
 
-	private HashMap<String, OWLClass> owlClassHashMap = new HashMap<String, OWLClass>();
-	private HashMap<String, OWLInst> owlInstHashMap = new HashMap<String, OWLInst>();
-	
-	
+	private final HashMap<String, OWLClass> owlClassHashMap = new HashMap<String, OWLClass>();
+	private final HashMap<String, OWLInst> owlInstHashMap = new HashMap<String, OWLInst>();
+
+
 	public HashMap<String, OWLClass> getOwlClassHashMap() {
-		return owlClassHashMap;
+		return this.owlClassHashMap;
 	}
 	public HashMap<String, OWLInst> getOwlInstHashMap() {
-		return owlInstHashMap;
+		return this.owlInstHashMap;
 	}
 	public static SemanticsPool createFromXML(String filePath) throws FileNotFoundException, JAXBException{
 		RDF rdf = RDF.parseXML(filePath);
@@ -33,6 +33,33 @@ public class SemanticsPool {
 			System.out.println("put " + inst.getID());
 		}
 		return sp;
+	}
+
+	/**
+	 * check if sonInst equals to fatherInst or sonInst is child of fatherInst
+	 * 
+	 * @param sonInst
+	 * @param fatherInst
+	 * @return
+	 */
+	public boolean isChild(String sonInst, String fatherInst) {
+		OWLClass currentClass = this.owlClassHashMap.get(
+				this.owlInstHashMap.get(sonInst).getRdfType());
+		OWLClass fatherClass = this.owlClassHashMap.get(
+				this.owlInstHashMap.get(fatherInst).getRdfType());
+
+		while(true){
+			if (currentClass.getID().equals(fatherClass.getID())){
+				return true;
+			}
+			if (currentClass.getSubClass() == null
+					|| currentClass.getSubClass().getResource().equals("")) {
+				break;
+			}
+			currentClass = this.owlClassHashMap.get(currentClass.getSubClass()
+					.getResource());
+		}
+		return false;
 	}
 	/**
 	 * @param args
