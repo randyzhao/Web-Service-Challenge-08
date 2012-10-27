@@ -86,7 +86,7 @@ public class Solver {
 	public static void main(String[] args) throws JAXBException, IOException {
 		// TODO Auto-generated method stub
 		Solver solver = new Solver("Services.wsdl", "Taxonomy.owl");
-		solver.solve("inst2139388127", "inst162515103", "output.xml");
+		solver.solve("inst2139388127", "inst162515103", "solution.bpel");
 	}
 
 }

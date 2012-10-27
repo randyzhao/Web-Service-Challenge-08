@@ -599,9 +599,10 @@ public class Process {
 	}
 
 	public static Process fromServiceSequence(List<String> serviceSequence) {
+		System.out.println("list size is " + serviceSequence.size());
 		Process process = new Process();
-		process.setName("process");
-		process.setTargetNamespace("http://www.ws-challenge.org/solution");
+		process.setName("WSC08");
+		process.setTargetNamespace("http://www.ws-challenge.org/WSC08CompositionSolution/");
 
 		Sequence sequence = new Sequence();
 		process.setSequence(sequence);
@@ -610,13 +611,15 @@ public class Process {
 		Receive receive = new Receive();
 		sequence.setReceive(receive);
 		receive.setName("receiveQuery");
-		receive.setPortType("Task0PortType");
+		receive.setPortType("solutionProcess");
 		receive.setVariable("query");
 
 		Process.Sequence.Switch switchInst = new Process.Sequence.Switch();
 		sequence.setSwitch(switchInst);
+		switchInst.setName("SolutionAlternativesA");
 
 		Process.Sequence.Switch.Case caseInst = new Process.Sequence.Switch.Case();
+		caseInst.setName("Alternative-SolutionA");
 		switchInst.getCase().add(caseInst);
 		randy.bpel.types.Sequence tempSequence = new randy.bpel.types.Sequence();
 		caseInst.setSequence(tempSequence);
@@ -627,13 +630,19 @@ public class Process {
 
 			Invoke invoke = new Invoke();
 			tempSequence.getSwitchOrInvokeOrSequence().add(invoke);
-			invoke.setName(serviceName);
-			invoke.setPortType(serviceName + "PortType");
-			invoke.setOperation(serviceName + "Operation");
+			invoke.setName("serv" + serviceName + "Service");
+			invoke.setPortType("serv" + serviceName + "PortType");
+			invoke.setOperation("serv" + serviceName + "Operation");
 
-			Process.Sequence.Switch tempSwitchInst = new Process.Sequence.Switch();
+			if (serviceSequence.size() == 0) {
+				break;
+			}
+
+			randy.bpel.types.Switch tempSwitchInst = new randy.bpel.types.Switch();
+			tempSwitchInst.setName("Alternative-ServicesA");
 			tempSequence.getSwitchOrInvokeOrSequence().add(tempSwitchInst);
-			Process.Sequence.Switch.Case tempCaseInst = new Process.Sequence.Switch.Case();
+			randy.bpel.types.Case tempCaseInst = new randy.bpel.types.Case();
+			tempCaseInst.setName("case");
 			tempSwitchInst.getCase().add(tempCaseInst);
 			tempSequence = new randy.bpel.types.Sequence();
 			tempCaseInst.setSequence(tempSequence);

@@ -10,6 +10,7 @@ package randy.bpel.types;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -49,75 +50,80 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "switchOrInvokeOrSequence"
+		"switchOrInvokeOrSequence"
 })
 @XmlRootElement(name = "sequence")
 public class Sequence {
 
-    @XmlElements({
-        @XmlElement(name = "sequence", type = Sequence.class),
-        @XmlElement(name = "flow", type = Flow.class),
-        @XmlElement(name = "switch", type = Switch.class),
-        @XmlElement(name = "invoke", type = Invoke.class)
-    })
-    protected List<Object> switchOrInvokeOrSequence;
-    @XmlAttribute
-    protected String name;
+	@XmlElements({
+		@XmlElement(name = "sequence", type = Sequence.class),
+		@XmlElement(name = "flow", type = Flow.class),
+		@XmlElement(name = "switch", type = Switch.class),
+		@XmlElement(name = "invoke", type = Invoke.class)
+	})
+	protected List<Object> switchOrInvokeOrSequence;
+	@XmlAttribute
+	protected String name;
 
-    /**
-     * Gets the value of the switchOrInvokeOrSequence property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the switchOrInvokeOrSequence property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getSwitchOrInvokeOrSequence().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Sequence }
-     * {@link Flow }
-     * {@link Switch }
-     * {@link Invoke }
-     * 
-     * 
-     */
-    public List<Object> getSwitchOrInvokeOrSequence() {
-        if (switchOrInvokeOrSequence == null) {
-            switchOrInvokeOrSequence = new ArrayList<Object>();
-        }
-        return this.switchOrInvokeOrSequence;
-    }
+	/**
+	 * Gets the value of the switchOrInvokeOrSequence property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list,
+	 * not a snapshot. Therefore any modification you make to the
+	 * returned list will be present inside the JAXB object.
+	 * This is why there is not a <CODE>set</CODE> method for the switchOrInvokeOrSequence property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * <pre>
+	 *    getSwitchOrInvokeOrSequence().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list
+	 * {@link Sequence }
+	 * {@link Flow }
+	 * {@link Switch }
+	 * {@link Invoke }
+	 * 
+	 * 
+	 */
+	public List<Object> getSwitchOrInvokeOrSequence() {
+		if (this.switchOrInvokeOrSequence == null) {
+			this.switchOrInvokeOrSequence = new ArrayList<Object>();
+		}
+		return this.switchOrInvokeOrSequence;
+	}
 
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Gets the value of the name property.
+	 * 
+	 * @return
+	 *     possible object is
+	 *     {@link String }
+	 *     
+	 */
+	public String getName() {
+		return this.name;
+	}
 
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+	/**
+	 * Sets the value of the name property.
+	 * 
+	 * @param value
+	 *     allowed object is
+	 *     {@link String }
+	 *     
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
+
+	public void setReceive(Receive receive) {
+		// TODO Auto-generated method stub
+
+	}
 
 }
