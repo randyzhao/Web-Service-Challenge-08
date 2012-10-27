@@ -1,12 +1,18 @@
 package randy;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
+import randy.bpel.types.Process;
 import randy.owl.SemanticsPool;
 import randy.wsdl.ServicePool;
 
@@ -34,7 +40,9 @@ public class Solver {
 		}
 		return false;
 	}
-	public void solve(String input, String output, String outputFile){
+
+	public void solve(String input, String output, String outputFile)
+			throws JAXBException, IOException {
 		//TODO:
 		this.outputSet.add(input);
 		List<String> serviceSequence = new LinkedList<String>();
@@ -48,7 +56,12 @@ public class Solver {
 			System.out.println("choose service " + serviceID);
 			serviceSequence.add(serviceID);
 		} while (!this.checkOutputSet(output));
+		Process process = Process.fromServiceSequence(serviceSequence);
+		JAXBContext jc = JAXBContext.newInstance(Process.class);
+		Marshaller m = jc.createMarshaller();
+		m.marshal(process, new FileWriter(new File(outputFile)));
 	}
+
 
 	/**
 	 * using service file and owl file to create semantics pool and service pool
@@ -68,13 +81,12 @@ public class Solver {
 	/**
 	 * @param args
 	 * @throws JAXBException
-	 * @throws FileNotFoundException
+	 * @throws IOException
 	 */
-	public static void main(String[] args) throws FileNotFoundException,
-	JAXBException {
+	public static void main(String[] args) throws JAXBException, IOException {
 		// TODO Auto-generated method stub
 		Solver solver = new Solver("Services.wsdl", "Taxonomy.owl");
-		solver.solve("inst2139388127", "inst162515103", null);
+		solver.solve("inst2139388127", "inst162515103", "output.xml");
 	}
 
 }
