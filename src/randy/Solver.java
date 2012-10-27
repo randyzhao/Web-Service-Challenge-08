@@ -28,6 +28,7 @@ public class Solver {
 	private boolean checkOutputSet(String output) {
 		for (String o : this.outputSet) {
 			if (this.semanticsPool.isChild(o, output)) {
+				System.out.println(o + " --- " + output);
 				return true;
 			}
 		}
@@ -46,7 +47,7 @@ public class Solver {
 			}
 			System.out.println("choose service " + serviceID);
 			serviceSequence.add(serviceID);
-		} while (this.checkOutputSet(output));
+		} while (!this.checkOutputSet(output));
 	}
 
 	/**
@@ -63,12 +64,17 @@ public class Solver {
 		this.servicePool = ServicePool.parseXML(this.semanticsPool,
 				serviceFilePath);
 	}
+
 	/**
 	 * @param args
+	 * @throws JAXBException
+	 * @throws FileNotFoundException
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException,
+	JAXBException {
 		// TODO Auto-generated method stub
-
+		Solver solver = new Solver("Services.wsdl", "Taxonomy.owl");
+		solver.solve("inst2139388127", "inst162515103", null);
 	}
 
 }

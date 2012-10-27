@@ -26,11 +26,11 @@ public class SemanticsPool {
 		SemanticsPool sp = new SemanticsPool();
 		for (OWLClass cl : rdf.getOwlClassList()){
 			sp.owlClassHashMap.put(cl.getID(), cl);
-			System.out.println("put " + cl.getID());
+			System.out.println("put class " + cl.getID());
 		}
 		for (OWLInst inst : rdf.getOwlInstList()){
 			sp.owlInstHashMap.put(inst.getID(), inst);
-			System.out.println("put " + inst.getID());
+			System.out.println("put inst " + inst.getID());
 		}
 		return sp;
 	}
@@ -43,10 +43,14 @@ public class SemanticsPool {
 	 * @return
 	 */
 	public boolean isChild(String sonInst, String fatherInst) {
-		OWLClass currentClass = this.owlClassHashMap.get(
-				this.owlInstHashMap.get(sonInst).getRdfType());
+		// the reason to add .substring is the name of class in instance is
+		// #conXXX
+		// but the name of class in class definition is XXX
+		OWLClass currentClass = this.owlClassHashMap.get(this.owlInstHashMap
+				.get(sonInst).getRdfType().getResource().substring(1));
 		OWLClass fatherClass = this.owlClassHashMap.get(
-				this.owlInstHashMap.get(fatherInst).getRdfType());
+				this.owlInstHashMap
+				.get(fatherInst).getRdfType().getResource().substring(1));
 
 		while(true){
 			if (currentClass.getID().equals(fatherClass.getID())){
@@ -57,7 +61,7 @@ public class SemanticsPool {
 				break;
 			}
 			currentClass = this.owlClassHashMap.get(currentClass.getSubClass()
-					.getResource());
+					.getResource().substring(1));
 		}
 		return false;
 	}

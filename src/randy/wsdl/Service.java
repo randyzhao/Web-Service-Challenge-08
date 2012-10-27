@@ -81,10 +81,12 @@ public class Service {
 		}
 		Service service = new Service(serviceID);
 		for (SemExt se : request.getSemExt()){
-			service.inputList.add(se.getOntologyRef());
+			int instBeginPos = se.getOntologyRef().indexOf("inst");
+			service.inputList.add(se.getOntologyRef().substring(instBeginPos));
 		}
 		for (SemExt se : response.getSemExt()){
-			service.outputList.add(se.getOntologyRef());
+			int instBeginPos = se.getOntologyRef().indexOf("inst");
+			service.outputList.add(se.getOntologyRef().substring(instBeginPos));
 		}
 		return service;
 	}
